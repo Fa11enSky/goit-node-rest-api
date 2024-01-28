@@ -5,12 +5,9 @@ const createContactSchema = Joi.object()
   .keys({
     name: Joi.string().min(2).max(20).required(),
     email: Joi.string().email().required(),
-    phone: Joi.string()
-      .pattern(
-        /^[(]{1}[0-9]{3}[)]{1} [0-9]{3}[-]{1}[0-9]{4}$/,
-        "number must be in format (000) 123-4567"
-      )
-      .required(),
+    //шаблону строку прибрав😉
+    phone: Joi.string().required(),
+    favorite: Joi.boolean(),
   });
 
 const updateContactSchema = Joi.object()
@@ -18,10 +15,8 @@ const updateContactSchema = Joi.object()
   .keys({
     name: Joi.string().min(2).max(20),
     email: Joi.string().email(),
-    phone: Joi.string().pattern(
-      /^[(]{1}[0-9]{3}[)]{1} [0-9]{3}[-]{1}[0-9]{4}$/,
-      "number must be in format (000) 123-4567"
-    ),
+    phone: Joi.string(),
+    favorite: Joi.boolean(),
   });
 module.exports = {
   createContactSchema,
