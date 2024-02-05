@@ -5,7 +5,6 @@ const createContactSchema = Joi.object()
   .keys({
     name: Joi.string().min(2).max(20).required(),
     email: Joi.string().email().required(),
-    //шаблону строку прибрав😉
     phone: Joi.string().required(),
     favorite: Joi.boolean(),
   });
@@ -18,6 +17,7 @@ const updateContactSchema = Joi.object()
     phone: Joi.string(),
     favorite: Joi.boolean(),
   });
+
 module.exports = {
   createContactSchema,
   updateContactSchema,

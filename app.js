@@ -1,15 +1,22 @@
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
-const contactsRouter = require("./routes/contactsRouter");
 
-require('dotenv').config();
+const contactsRouter = require("./routes/contactsRouter");
+const authRouter = require("./routes/auth");
+const currentRouter = require("./routes/users");
+
+require("dotenv").config();
 
 const app = express();
 
 app.use(morgan("tiny"));
 app.use(cors());
 app.use(express.json());
+
+app.use("/api/auth", authRouter);
+
+app.use("/users", currentRouter);
 
 app.use("/api/contacts", contactsRouter);
 
@@ -23,5 +30,3 @@ app.use((err, req, res, next) => {
 });
 
 module.exports = app;
-
-// Старт сервера переїхав до server.js
