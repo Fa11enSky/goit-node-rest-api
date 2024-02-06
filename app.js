@@ -4,7 +4,6 @@ const cors = require("cors");
 
 const contactsRouter = require("./routes/contactsRouter");
 const authRouter = require("./routes/auth");
-const currentRouter = require("./routes/users");
 
 require("dotenv").config();
 
@@ -14,9 +13,7 @@ app.use(morgan("tiny"));
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/auth", authRouter);
-
-app.use("/users", currentRouter);
+app.use("/users", authRouter);
 
 app.use("/api/contacts", contactsRouter);
 
