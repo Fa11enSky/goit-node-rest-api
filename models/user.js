@@ -16,7 +16,6 @@ const userSchema = new Schema(
       unique: true,
       match: emailRegexp,
     },
-    // ! JOI schema
     subscription: {
       type: String,
       enum: ["starter", "pro", "business"],
@@ -26,6 +25,10 @@ const userSchema = new Schema(
       type: String,
       default: "",
     },
+    avatarURL: {
+      type: String,
+      required:true,
+    }
   },
   { versionKey: false, timestamps: true }
 );

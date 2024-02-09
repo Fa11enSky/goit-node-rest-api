@@ -10,6 +10,7 @@ const {
 const { register, login } = require("./auth/auth");
 const { getCurrent } = require("./auth/current");
 const { logout } = require("./auth/logout");
+const {updateAvatar} = require('./updateAvatar/updateAvatar')
 
 module.exports = {
   createContact,
@@ -22,4 +23,5 @@ module.exports = {
   login,
   getCurrent,
   logout,
+  updateAvatar
 };
