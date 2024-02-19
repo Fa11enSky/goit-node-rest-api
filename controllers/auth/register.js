@@ -2,7 +2,9 @@ const bcrypt = require("bcrypt");
 const gravatar = require("gravatar");
 const { v4 } = require("uuid");
 const { User } = require("../../models");
-const { HttpError, ctrlWrapper, sendEmail } = require("../../helpers");
+const { HttpError, ctrlWrapper } = require("../../helpers");
+const { sendEmail } = require("../../services");
+
 require("dotenv").config();
 
 const { BASE_URL } = process.env;
