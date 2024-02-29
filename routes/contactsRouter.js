@@ -1,22 +1,53 @@
-import express from "express";
-import {
+const express = require("express");
+
+const {
   getAllContacts,
   getOneContact,
   deleteContact,
   createContact,
   updateContact,
-} from "../controllers/contactsControllers.js";
+  updateStatusContact,
+} = require("../controllers");
+
+const {
+  createContactSchema,
+  updateContactSchema,
+  updateFavoriteSchema,
+} = require("../schemas");
+
+const { validateBody, isValidId } = require("../middlewares");
+// цей експорт був зроблений через циклічні залежності які я до кінця не розумію)
+const authenticate = require('../middlewares/authenticate')
 
 const contactsRouter = express.Router();
 
-contactsRouter.get("/", getAllContacts);
+contactsRouter.get("/", authenticate, getAllContacts);
 
-contactsRouter.get("/:id", getOneContact);
+contactsRouter.get("/:id", authenticate, isValidId, getOneContact);
 
-contactsRouter.delete("/:id", deleteContact);
+contactsRouter.delete("/:id", authenticate, isValidId, deleteContact);
 
-contactsRouter.post("/", createContact);
+contactsRouter.post(
+  "/",
+  authenticate,
+  validateBody(createContactSchema),
+  createContact
+);
 
-contactsRouter.put("/:id", updateContact);
+contactsRouter.put(
+  "/:id",
+  authenticate,
+  isValidId,
+  validateBody(updateContactSchema),
+  updateContact
+);
 
-export default contactsRouter;
+contactsRouter.patch(
+  "/:id/favorite",
+  authenticate,
+  isValidId,
+  validateBody(updateFavoriteSchema),
+  updateStatusContact
+);
+
+module.exports = contactsRouter;
